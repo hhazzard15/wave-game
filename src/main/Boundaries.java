@@ -21,7 +21,7 @@ public class Boundaries extends GameObject{
 	@Override
 	public void render(Graphics g) {
 		g.setColor(Color.yellow);
-		g.fillRect(x, y, 800, 30);
+		g.fillRect((int)x, (int)y, 800, 30);
 		
 	}
 

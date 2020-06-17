@@ -15,14 +15,14 @@ public class Player extends GameObject{
 	private static ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 	private double speedX;
 	
-	public Player(int x, int y, ID id, Handler handler) {
+	public Player(float x, float y, ID id, Handler handler) {
 		super(x, y, id);
 		this.handler = handler;
 
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle(x, y, 32, 32);
+		return new Rectangle((int)x, (int)y, 32, 32);
 	}
 	
 	@Override
@@ -30,11 +30,11 @@ public class Player extends GameObject{
 		x += velX;
 		y += velY;
 		
-		x = Game.clamp(x, 0, Game.WIDTH - 40);
-		y = Game.clamp(y, 2, Game.HEIGHT - 63);
+		x = Game.clamp((int)x, 0, Game.WIDTH - 40);
+		y = Game.clamp((int)y, 2, Game.HEIGHT - 63);
 		
 		collision();
-		handler.addObject(new Trail(x, y, ID.Trail, Color.white, 32, 32, 0.045f, handler));
+		handler.addObject(new Trail((int)x, (int)y, ID.Trail, Color.white, 32, 32, 0.045f, handler));
 		
 		if(HUD.HEALTH == 0) { 
 			//System.exit(1); //KILLS THE GAME WINDOW WHEN HEALTH IS ZERO
@@ -67,7 +67,7 @@ public class Player extends GameObject{
 		
 		if(id == ID.Player) g.setColor(Color.white); //set the color of player 1
 		else if(id == ID.Player2) g.setColor(Color.blue); //set the color of player 2
-		g.fillRect(x, y, 32, 32);
+		g.fillRect((int)x, (int)y, 32, 32);
 		
 		
 	}
@@ -93,19 +93,19 @@ public class Player extends GameObject{
 		return projectiles;
 	}
 	
-	public int getPX() {
+	public float getPX() {
 		return x;
 	}
 	
-	public int getPY() {
+	public float getPY() {
 		return y;
 	}
 	
-	public void setPX(int x) {
+	public void setPX(float x) {
 		this.x = x;
 	}
 	
-	public void setPY(int y) {
+	public void setPY(float y) {
 		this.y = y;
 	}
 	

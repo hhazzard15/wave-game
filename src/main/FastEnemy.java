@@ -19,7 +19,7 @@ public class FastEnemy extends GameObject{
 	}
 		
 	public Rectangle getBounds() {
-		return new Rectangle(x, y, 12, 12);
+		return new Rectangle((int)x,(int) y, 12, 12);
 	}
 	
 	public void tick() {
@@ -34,7 +34,7 @@ public class FastEnemy extends GameObject{
 			velX *= -1;
 		}
 		
-		handler.addObject(new Trail(x, y, ID.Trail, Color.BLUE, 12, 12, 0.075f, handler));
+		handler.addObject(new Trail((int)x, (int)y, ID.Trail, Color.BLUE, 12, 12, 0.075f, handler));
 		
 		
 		
@@ -42,7 +42,7 @@ public class FastEnemy extends GameObject{
 	
 	public void render(Graphics g) {
 		g.setColor(Color.blue);
-		g.fillRect(x, y, 16, 16);
+		g.fillRect((int)x, (int)y, 16, 16);
 	}
 
 }

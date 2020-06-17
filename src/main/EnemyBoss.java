@@ -25,7 +25,7 @@ public class EnemyBoss extends GameObject{
 	}
 		
 	public Rectangle getBounds() {
-		return new Rectangle(x, y, 96, 96);
+		return new Rectangle((int)x, (int)y, 96, 96);
 	}
 	
 	public void tick() {
@@ -46,7 +46,7 @@ public class EnemyBoss extends GameObject{
 				velX -= 0.005f;
 			}
 			
-			velX = Game.clamp(velX, -10, 10);
+			velX = Game.clamp((int)velX, -10, 10);
 			
 			
 			int spawn = r.nextInt(10);
@@ -74,7 +74,7 @@ public class EnemyBoss extends GameObject{
 		g2d.draw(getBounds());*/
 		
 		g.setColor(Color.red);
-		g.fillRect(x, y, 96, 96);
+		g.fillRect((int)x, (int)y, 96, 96);
 	}
 
 }

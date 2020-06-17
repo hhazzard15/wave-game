@@ -9,7 +9,7 @@ public class BasicEnemy extends GameObject{
 
 	private Handler handler;
 	
-	public BasicEnemy(int x, int y, ID id, Handler handler) {
+	public BasicEnemy(float x, float y, ID id, Handler handler) {
 		super(x, y, id);
 		
 		this.handler = handler;
@@ -19,7 +19,7 @@ public class BasicEnemy extends GameObject{
 	}
 		
 	public Rectangle getBounds() {
-		return new Rectangle(x, y, 16, 16);
+		return new Rectangle((int)x, (int)y, 16, 16);
 	}
 	
 	public void tick() {
@@ -34,7 +34,7 @@ public class BasicEnemy extends GameObject{
 			velX *= -1;
 		}
 		
-		handler.addObject(new Trail(x, y, ID.Trail, Color.red, 16, 16, 0.075f, handler));
+		handler.addObject(new Trail((int)x, (int)y, ID.Trail, Color.red, 16, 16, 0.075f, handler));
 		
 		
 		
@@ -48,7 +48,7 @@ public class BasicEnemy extends GameObject{
 		g2d.draw(getBounds());*/
 		
 		g.setColor(Color.red);
-		g.fillRect(x, y, 16, 16);
+		g.fillRect((int)x, (int)y, 16, 16);
 	}
 
 }
