@@ -24,7 +24,8 @@ public class Game extends Canvas implements Runnable{
 	public Game() {
 		handler = new Handler();
 		this.addKeyListener(new KeyInput(handler)); //TELLS THE GAME TO PREPARE FOR KEY INPUT
-		System.out.println("go fuck yourself");				
+		System.out.println("go fuck yourself");	
+		System.out.println("no i don't want to");
 		new Window(WIDTH, HEIGHT, "go go power rangers", this);//HERE WE SET THE SIZE OF THE GAME WINDOW AND THE TITLE
 		
 		hud = new HUD();
