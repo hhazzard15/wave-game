@@ -3,13 +3,17 @@ package main;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import main.Game.STATE;
+
 public class KeyInput extends KeyAdapter{
 
 	private Handler handler;
+	private Game game;
 	private boolean[] keyDown = new boolean[4];
 	
-	public KeyInput(Handler handler) {
+	public KeyInput(Handler handler, Game game) {
 		this.handler = handler;
+		this.game = game;
 		
 		keyDown[0] = false;
 		keyDown[1] = false;
@@ -45,7 +49,10 @@ public class KeyInput extends KeyAdapter{
 					keyDown[3] = true;
 				}
 				
-				
+				if(key == KeyEvent.VK_E) {
+					game.gameState = STATE.Menu;
+					handler.clearPlayer();
+				}
 				
 				
 			}

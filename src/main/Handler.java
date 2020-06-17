@@ -10,7 +10,7 @@ public class Handler {
 	
 	public void tick() {
 		for(int i = 0; i < object.size(); i++) {
-			//i know how a fucking FOR loop works
+
 			GameObject tempObject = object.get(i); //setting tempObject to each
 												   //iteration 'i'
 			tempObject.tick();
@@ -23,6 +23,27 @@ public class Handler {
 			GameObject tempObject = object.get(i);
 			
 			tempObject.render(g);
+		}
+	}
+	
+	public void clearEnemies() {
+		for(int i = 0; i < object.size(); i++) {
+			GameObject tempObject = object.get(i);
+			
+			if(tempObject.getID() == ID.Player) {
+				object.clear();
+				addObject(new Player((int)tempObject.getX(), (int)tempObject.getY(), ID.Player, this));
+			}
+		}
+	}
+	
+	public void clearPlayer() {
+		for(int i = 0; i < object.size(); i++) {
+			GameObject tempObject = object.get(i);
+			
+			if(tempObject.getID() == ID.Player) {
+				object.clear();
+			}
 		}
 	}
 	

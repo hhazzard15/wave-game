@@ -15,7 +15,7 @@ public class EnemyBoss extends GameObject{
 	private int timer = 100;
 	private int timer2 = 50;
 	
-	public EnemyBoss(int x, int y, ID id, Handler handler) {
+	public EnemyBoss(float x, float y, ID id, Handler handler) {
 		super(x, y, id);
 		
 		this.handler = handler;
@@ -32,13 +32,13 @@ public class EnemyBoss extends GameObject{
 		x += velX;
 		y += velY;
 		
-		if(timer <= 0) {
-			velY = 0;
-		}else timer--;
+		if(timer <= 0) velY = 0; //boss moves down for 100 ticks (timer is 100, -1 every tick)
+		else timer--;
 		
-		if(timer <= 0) timer2--;
-		if(timer2 <= 0) {
-			if(velX == 0) velX = 5;
+		if(timer <= 0) timer2--; 
+		if(timer2 <= 0) {			
+		
+			if(velX == 0) velX = 2;
 			
 			if(velX > 0) {
 				velX += 0.005f;
@@ -46,11 +46,11 @@ public class EnemyBoss extends GameObject{
 				velX -= 0.005f;
 			}
 			
-			velX = Game.clamp((int)velX, -10, 10);
-			
+			//velX = Game.clamp(velX, -10, 10);
 			
 			int spawn = r.nextInt(10);
-			if(spawn == 0) handler.addObject(new EnemyBossBullet((int) x + 48,(int) y + 48, ID.BasicEnemy,handler));
+			if(spawn == 0) handler.addObject(new EnemyBossBullet((int) x + 48,(int) y + 48, ID.BasicEnemy, handler));
+			
 		}
 		
 		/*if(y <= 2 || y >= Game.HEIGHT - 45) {

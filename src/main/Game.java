@@ -20,30 +20,45 @@ public class Game extends Canvas implements Runnable{
 	private Player player;
 	private HUD hud;
 	private Spawner spawner;
+	private Menu menu;
+	
+	public enum STATE{
+		Menu,
+		Help,
+		Game,
+		End
+	};
+	
+	public STATE gameState = STATE.Menu; //SETS THE STATE OF THE GAME WINDOW (GAME, MENU, ETC...)
 	
 	public Game() {
 		handler = new Handler();
-		this.addKeyListener(new KeyInput(handler)); //TELLS THE GAME TO PREPARE FOR KEY INPUT
-		System.out.println("go fuck yourself");	
-		System.out.println("no i don't want to");
-		new Window(WIDTH, HEIGHT, "go go power rangers", this);//HERE WE SET THE SIZE OF THE GAME WINDOW AND THE TITLE
-		
 		hud = new HUD();
 		spawner = new Spawner(handler, hud);
+		menu = new Menu(this, handler, hud);
+		this.addKeyListener(new KeyInput(handler, this)); //TELLS THE GAME TO PREPARE FOR KEY INPUT
+		this.addMouseListener(menu);
+
+		new Window(WIDTH, HEIGHT, "go go power rangers", this);//HERE WE SET THE SIZE OF THE GAME WINDOW AND THE TITLE
+		
+		
+		
+		menu = new Menu(this, handler, hud);
+		
 		
 		r = new Random();
 		
+		if(gameState == STATE.Game) {
+			handler.addObject(new Player(HEIGHT/2, WIDTH/2 -100, ID.Player, handler));
+			handler.addObject(new BasicEnemy(r.nextInt((Game.WIDTH-200)), r.nextInt((Game.HEIGHT-200)), ID.BasicEnemy, handler));
+		}else {
+			for(int i = 0; i < 20; i++) {
+				handler.addObject(new MenuParticle(r.nextInt(WIDTH-200), r.nextInt(HEIGHT-200), ID.MenuParticle, handler));
+			}
+		}
 
-		handler.addObject(new Player(HEIGHT/2, WIDTH/2 -100, ID.Player, handler));//SPAWNING THE PLAYER IN THE MIDDLE OF THE SCREEN
 		
-		
-		//handler.addObject(new Player(WIDTH - 27, 150, ID.Player2));
-		/*for(float i = 0; i < 20; i++) { //THIS WAS THE CODE THAT SPAWNS 20 RANDOM ENEMIES
-			handler.addObject(new BasicEnemy(r.nextfloat(WIDTH - 200), r.nextfloat(HEIGHT - 200), ID.BasicEnemy, handler));
-		}*/
-		
-		//handler.addObject(new BasicEnemy(r.nextInt(WIDTH - 200), r.nextInt(HEIGHT - 200), ID.BasicEnemy, handler));
-		handler.addObject(new EnemyBoss((Game.WIDTH / 2) - 48, -100, ID.EnemyBoss, handler));
+
 	}
 
 	public synchronized void start() {
@@ -108,8 +123,19 @@ public class Game extends Canvas implements Runnable{
 	
 	private void tick() {
 		handler.tick();
-		hud.tick();
-		spawner.tick();
+		
+		if(gameState == STATE.Game) {
+			hud.tick();
+			spawner.tick();
+			
+			if(HUD.HEALTH <= 0) {
+				HUD.HEALTH = 100;
+				handler.clearEnemies();
+				gameState = STATE.End;
+			}
+		}else if(gameState == STATE.Menu || gameState == STATE.End) {
+			menu.tick();
+		}
 	}
 	
 	private void render() {
@@ -136,19 +162,24 @@ public class Game extends Canvas implements Runnable{
 			
 		handler.render(g);
 		
-		hud.render(g);
+		if(gameState == STATE.Game) {
+			hud.render(g);
+		}else if(gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.End) {
+			g.setColor(Color.white);
+			menu.render(g);
+		}
 		
 		g.dispose();
 		bs.show();
 	}
 	
-	public static int clamp(int var, int min, int max) {
+	public static int clamp(float var, float min, float max) {
 		if(var >= max)
-			return var = max;
+			return (int) (var = max);
 		else if(var <= min)
-			return var = min;
+			return (int) (var = min);
 		else
-			return var;
+			return (int) var;
 	}
 	
 	public static void main(String[] args) {

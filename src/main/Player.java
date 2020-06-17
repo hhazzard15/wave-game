@@ -40,7 +40,7 @@ public class Player extends GameObject{
 			//System.exit(1); //KILLS THE GAME WINDOW WHEN HEALTH IS ZERO
 			handler.removeObject(this);
 		}
-		System.out.println("x: " + x + "y: " + y);
+		//System.out.println("x: " + x + "y: " + y);
 	}
 
 	private void collision() {

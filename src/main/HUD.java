@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 
 public class HUD {
@@ -19,7 +20,7 @@ public class HUD {
 		
 		greenValue = HEALTH * 2;
 		
-		if(HEALTH > 0) score++;
+		if(HEALTH > 0 && level != 0) score++;
 		
 	}
 	
@@ -33,6 +34,16 @@ public class HUD {
 		
 		g.drawString("Score: " + score, 15, 64);
 		g.drawString("Level: " + level, 15, 80);
+		
+		/*int timer = 0;
+		if(timer >= 10) {
+			Font fnt = new Font("arial", 1, 400);
+			g.setFont(fnt);
+			g.setColor(Color.white);
+			g.drawString("1", 200, 200);
+			timer++;
+			System.out.println(timer);
+		}*/
 	}
 	
 	public void score(int score) {
